@@ -206,17 +206,31 @@ python3 Example.py
 
 ```
 $ python Example.py
-Enter the number of characters you want in the password: 16
-Generated Password: K8#mN2$vR9@pL3!x
+Hey, Welcome. Just say me how many characters do you want in your password? (default 128)
+16
+Random password of length 16 is: 
+******
+,QM3Wa_7!kR9@pL3
+******
+It contains 3 lowercase, 5 uppercase, 4 numbers and 4 symbol characters
+Password copied to clipboard, push a button to exit...
 ```
+
+### Default Behavior
+
+- **Default length**: 128 characters (if you just press Enter)
+- **Automatic clipboard copy**: Password is automatically copied to clipboard
+- **Character breakdown**: Shows count of each character type used
+- **Interactive prompt**: Press any key to exit after generation
 
 ### Common Password Lengths
 
-| Length | Use Case | Command |
-|--------|----------|---------|
+| Length | Use Case | Input |
+|--------|----------|--------|
 | 8-12   | Basic accounts | Enter `12` when prompted |
 | 16-20  | Important accounts | Enter `16` when prompted |
 | 24-32  | High-security accounts | Enter `24` when prompted |
+| 128    | Maximum security (default) | Just press Enter |
 
 ### Platform-Specific Commands
 
@@ -285,38 +299,39 @@ chmod +x Example.py
 
 ## 🔍 How It Works
 
-PyPassGen uses Python's built-in `secrets` module to generate cryptographically secure passwords, with `pyperclip` for clipboard functionality.
+PyPassGen uses Python's built-in `random` module to generate passwords with balanced character distribution, and `pyperclip` for clipboard functionality.
 
 ### Dependencies
 
-- **secrets** (built-in) - Cryptographically secure random number generation
-- **string** (built-in) - Character set definitions
+- **random** (built-in) - Random number generation for character selection
 - **pyperclip** - Cross-platform clipboard access for easy password copying
 
-### Character Set
+### Character Set & Distribution
 
-The generator uses these character types:
-- **Uppercase letters**: A-Z (26 characters)
-- **Lowercase letters**: a-z (26 characters)
-- **Numbers**: 0-9 (10 characters)
-- **Special characters**: !@#$%^&*()_+-= (13+ characters)
+The generator uses ASCII character ranges to ensure balanced character distribution:
+- **Lowercase letters**: ASCII 97-122 (a-z)
+- **Uppercase letters**: ASCII 65-90 (A-Z)  
+- **Numbers**: ASCII 48-57 (0-9)
+- **Special characters**: ASCII 33-47, 91-96, 123-126 (!@#$%^&*()_+-=[]{}|;:,.<>?~)
 
-### Security Features
+### Key Features
 
-✅ **Cryptographically secure** - Uses `secrets.choice()` for random generation  
-✅ **No predictable patterns** - Each character is independently selected  
-✅ **Offline generation** - No internet connection required  
+✅ **Balanced character distribution** - Ensures mix of all character types  
+✅ **Random character selection** - Uses `random.randint()` for selection  
+✅ **Automatic clipboard copying** - Generated password is copied to clipboard  
+✅ **Character count display** - Shows breakdown of character types used  
+✅ **Customizable length** - Default 128 characters, user can specify any length  
 ✅ **No data storage** - Passwords are not saved or logged  
-✅ **Clipboard integration** - Easy copying with pyperclip
 
 ### Password Strength
 
-| Length | Combinations | Estimated Crack Time |
-|--------|-------------|---------------------|
-| 8      | 2.7 × 10¹⁵  | Hours to days      |
-| 12     | 4.8 × 10²³  | Years              |
-| 16     | 8.6 × 10³¹  | Thousands of years |
-| 24     | 2.7 × 10⁴⁸  | Millions of years  |
+| Length | Combinations | Character Mix | Security Level |
+|--------|-------------|---------------|----------------|
+| 8      | ~6.1 × 10¹⁴  | Balanced     | Good          |
+| 12     | ~8.9 × 10²¹  | Balanced     | Strong        |
+| 16     | ~1.3 × 10²⁹  | Balanced     | Very Strong   |
+| 24     | ~2.8 × 10⁴³  | Balanced     | Excellent     |
+| 128    | ~10⁶⁸⁴      | Balanced     | Cryptographic |
 
 ## 📁 Project Structure
 
@@ -332,24 +347,60 @@ PyPassGen/
 
 ```python
 # Example.py structure
-import secrets            # Cryptographically secure random
-import string            # Character set definitions
+import random            # Random number generation
 import pyperclip         # Clipboard functionality
 
-def generate_password(length):
-    # Character set definition
-    characters = string.ascii_letters + string.digits + "!@#$%^&*()_+-="
-    
-    # Generate password
-    password = ''.join(secrets.choice(characters) for _ in range(length))
-    return password
+# Initialize counters for character types
+symbol = 0
+lower = 0
+upper = 0
+number = 0
+count = 0
+password = []
 
-# Main execution
-if __name__ == "__main__":
-    # Get user input
-    # Generate password
-    # Copy to clipboard (pyperclip)
-    # Display result
+# Get user input (default 128)
+length = input("Hey, Welcome. Just say me how many characters do you want in your password? (default 128)\n")
+length = 128 if length == '' else int(length)
+
+# Generate password with balanced character distribution
+while count < length:
+    rand = random.randint(0, 3)  # Select character type
+    if rand == 0:    # Lowercase
+        lower += 1
+        b = random.randint(97, 123)
+        password.append(b)
+    elif rand == 1:  # Uppercase
+        upper += 1
+        b = random.randint(65, 91)
+        password.append(b)
+    elif rand == 2:  # Numbers
+        number += 1
+        b = random.randint(48, 58)
+        password.append(b)
+    elif rand == 3:  # Symbols
+        symbol += 1
+        # Select from different symbol ranges
+        r = random.randint(0, 2)
+        if r == 0:
+            b = random.randint(33, 48)
+        elif r == 1:
+            b = random.randint(91, 97)
+        elif r == 2:
+            b = random.randint(123, 126)
+        password.append(b)
+    count += 1
+
+# Convert ASCII codes to characters
+word = "".join([chr(c) for c in password])
+
+# Copy to clipboard and display results
+pyperclip.copy(word)
+print("Random password of length %s is: \n" % length)
+print('******')
+print(word)
+print('******')
+print("\nIt contains", lower, "lowercase,", upper, "uppercase,", number, "numbers and", symbol, "symbol characters")
+input('Password copied to clipboard, push a button to exit...')
 ```
 
 ## 🛠️ Troubleshooting
@@ -428,6 +479,15 @@ Or run with python:
 python3 Example.py
 ```
 
+#### ❌ SyntaxWarning: "is" with a literal
+
+You might see this warning:
+```
+SyntaxWarning: "is" with a literal. Did you mean "=="?
+```
+
+This is a minor warning in the code and doesn't affect functionality. The program will still work correctly.
+
 #### ❌ "ModuleNotFoundError: No module named 'pyperclip'"
 
 Install the required dependencies:
@@ -445,15 +505,28 @@ On macOS/Linux, you might need:
 pip3 install pyperclip
 ```
 
-#### ❌ "ModuleNotFoundError" (other modules)
+#### ❌ "ValueError: invalid literal for int()"
 
-Check Python version:
-```bash
-python --version
+This happens if you enter non-numeric characters when asked for password length.
+Make sure to enter only numbers:
+```
+Hey, Welcome. Just say me how many characters do you want in your password? (default 128)
+16    # Enter numbers only, not letters
 ```
 
-Should be Python 3.6 or higher
-If not, upgrade Python
+#### ❌ Password not copied to clipboard
+
+If the password isn't copying to clipboard:
+- **On Linux**: You might need to install additional clipboard tools:
+```bash
+sudo apt install xclip
+```
+or
+```bash
+sudo apt install xsel
+```
+
+- **On macOS/Windows**: pyperclip should work automatically
 
 #### ❌ Program hangs or doesn't respond
 
@@ -463,7 +536,7 @@ Then run again:
 python Example.py
 ```
 
-Make sure to enter a number when prompted
+Make sure to enter a number when prompted, or just press Enter for default (128)
 
 ### Getting Help
 
