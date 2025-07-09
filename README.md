@@ -8,18 +8,24 @@ A simple, secure Python password generator that creates cryptographically strong
 
 ## 🚀 Quick Start
 
-
-# Clone the repository
+Clone the repository:
 ```bash
 git clone https://github.com/pbssubhash/PyPassGen.git
 ```
+
+Navigate to directory:
 ```bash
 cd PyPassGen
 ```
 
-# Run the generator
-```bash 
-python PyPassGen.py
+Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+Run the generator:
+```bash
+python Example.py
 ```
 
 ## 📋 Table of Contents
@@ -33,8 +39,7 @@ python PyPassGen.py
 
 ## 💻 Installation
 
-### Prerequisites 
-Incase you do not have Python installed or its versions is below 3.6+ follow the following installation guide based on your computer operating system
+### Prerequisites
 
 - Python 3.6 or higher
 - No additional dependencies required
@@ -48,6 +53,8 @@ Incase you do not have Python installed or its versions is below 3.6+ follow the
 2. Download Python 3.6+ for Windows
 3. Run installer and **check "Add Python to PATH"**
 4. Verify installation:
+
+<!-- Copy: python --version -->
 ```cmd
 python --version
 ```
@@ -57,11 +64,13 @@ Search "Python" in Microsoft Store and install
 
 **Option 3: Package Manager**
 Using Chocolatey:
+<!-- Copy: choco install python -->
 ```cmd
 choco install python
 ```
 
 Using Scoop:
+<!-- Copy: scoop install python -->
 ```cmd
 scoop install python
 ```
@@ -70,16 +79,19 @@ scoop install python
 
 **Option 1: Homebrew (Recommended)**
 Install Homebrew if not installed:
+<!-- Copy: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" -->
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 Install Python:
+<!-- Copy: brew install python -->
 ```bash
 brew install python
 ```
 
 Verify installation:
+<!-- Copy: python3 --version -->
 ```bash
 python3 --version
 ```
@@ -88,6 +100,7 @@ python3 --version
 1. Go to [python.org/downloads/macos](https://www.python.org/downloads/macos/)
 2. Download and install Python 3.6+
 3. Verify installation:
+<!-- Copy: python3 --version -->
 ```bash
 python3 --version
 ```
@@ -96,43 +109,51 @@ python3 --version
 
 **Ubuntu/Debian:**
 Update package list:
+<!-- Copy: sudo apt update -->
 ```bash
 sudo apt update
 ```
 
 Install Python:
+<!-- Copy: sudo apt install python3 python3-pip -->
 ```bash
 sudo apt install python3 python3-pip
 ```
 
 Verify installation:
+<!-- Copy: python3 --version -->
 ```bash
 python3 --version
 ```
 
 **RHEL/CentOS/Fedora:**
 RHEL/CentOS:
+<!-- Copy: sudo dnf install python3 python3-pip -->
 ```bash
 sudo dnf install python3 python3-pip
 ```
 
 Fedora:
+<!-- Copy: sudo dnf install python3 python3-pip -->
 ```bash
 sudo dnf install python3 python3-pip
 ```
 
 Verify installation:
+<!-- Copy: python3 --version -->
 ```bash
 python3 --version
 ```
 
 **Arch Linux:**
 Install Python:
+<!-- Copy: sudo pacman -S python python-pip -->
 ```bash
 sudo pacman -S python python-pip
 ```
 
 Verify installation:
+<!-- Copy: python --version -->
 ```bash
 python --version
 ```
@@ -173,18 +194,18 @@ python PyPassGen.py
 
 Run the password generator:
 ```bash
-python PyPassGen.py
+python Example.py
 ```
 
 **On macOS/Linux, you might need:**
 ```bash
-python3 PyPassGen.py
+python3 Example.py
 ```
 
 ### Interactive Session
 
 ```
-$ python PyPassGen.py
+$ python Example.py
 Enter the number of characters you want in the password: 16
 Generated Password: K8#mN2$vR9@pL3!x
 ```
@@ -203,68 +224,74 @@ Generated Password: K8#mN2$vR9@pL3!x
 
 Command Prompt:
 ```cmd
-python PyPassGen.py
+python Example.py
 ```
 
 PowerShell:
 ```powershell
-python PyPassGen.py
+python Example.py
 ```
 
 If python command not found, try:
 ```cmd
-py PyPassGen.py
+py Example.py
 ```
 
 ```cmd
-py -3 PyPassGen.py
+py -3 Example.py
 ```
 
 #### 🍎 macOS Commands
 
 Terminal:
 ```bash
-python3 PyPassGen.py
+python3 Example.py
 ```
 
 If you have Python 3 as default:
 ```bash
-python PyPassGen.py
+python Example.py
 ```
 
 Make executable (optional):
 ```bash
-chmod +x PyPassGen.py
+chmod +x Example.py
 ```
 
 ```bash
-./PyPassGen.py
+./Example.py
 ```
 
 #### 🐧 Linux Commands
 
 Most distributions:
 ```bash
-python3 PyPassGen.py
+python3 Example.py
 ```
 
 Arch Linux (Python 3 is default):
 ```bash
-python PyPassGen.py
+python Example.py
 ```
 
 Make executable:
 ```bash
-chmod +x PyPassGen.py
+chmod +x Example.py
 ```
 
 ```bash
-./PyPassGen.py
+./Example.py
 ```
 
 ## 🔍 How It Works
 
-PyPassGen uses Python's built-in `secrets` module to generate cryptographically secure passwords.
+PyPassGen uses Python's built-in `secrets` module to generate cryptographically secure passwords, with `pyperclip` for clipboard functionality.
+
+### Dependencies
+
+- **secrets** (built-in) - Cryptographically secure random number generation
+- **string** (built-in) - Character set definitions
+- **pyperclip** - Cross-platform clipboard access for easy password copying
 
 ### Character Set
 
@@ -280,6 +307,7 @@ The generator uses these character types:
 ✅ **No predictable patterns** - Each character is independently selected  
 ✅ **Offline generation** - No internet connection required  
 ✅ **No data storage** - Passwords are not saved or logged  
+✅ **Clipboard integration** - Easy copying with pyperclip
 
 ### Password Strength
 
@@ -294,18 +322,19 @@ The generator uses these character types:
 
 ```
 PyPassGen/
-├── PyPassGen.py          # Main password generator script
+├── Example.py            # Main password generator script
 ├── README.md             # This documentation
 ├── LICENSE               # MIT License
-└── requirements.txt      # Dependencies (empty - no external deps)
+└── requirements.txt      # Python dependencies (pyperclip)
 ```
 
 ### Code Structure
 
 ```python
-# PyPassGen.py structure
+# Example.py structure
 import secrets            # Cryptographically secure random
 import string            # Character set definitions
+import pyperclip         # Clipboard functionality
 
 def generate_password(length):
     # Character set definition
@@ -319,6 +348,7 @@ def generate_password(length):
 if __name__ == "__main__":
     # Get user input
     # Generate password
+    # Copy to clipboard (pyperclip)
     # Display result
 ```
 
@@ -331,21 +361,21 @@ if __name__ == "__main__":
 **On Windows:**
 Try these alternatives:
 ```cmd
-py PyPassGen.py
+py Example.py
 ```
 
 ```cmd
-py -3 PyPassGen.py
+py -3 Example.py
 ```
 
 ```cmd
-python3 PyPassGen.py
+python3 Example.py
 ```
 
 **On macOS/Linux:**
 Try python3 instead:
 ```bash
-python3 PyPassGen.py
+python3 Example.py
 ```
 
 Or install Python:
@@ -376,7 +406,7 @@ cd PyPassGen
 
 Verify file exists:
 ```bash
-ls PyPassGen.py
+ls Example.py
 ```
 
 #### ❌ "Permission denied"
@@ -384,24 +414,40 @@ ls PyPassGen.py
 **On Windows:**
 Run as Administrator or use:
 ```cmd
-python PyPassGen.py
+python Example.py
 ```
 
 **On macOS/Linux:**
 Make executable:
 ```bash
-chmod +x PyPassGen.py
+chmod +x Example.py
 ```
 
 Or run with python:
 ```bash
-python3 PyPassGen.py
+python3 Example.py
 ```
 
-#### ❌ "ModuleNotFoundError"
+#### ❌ "ModuleNotFoundError: No module named 'pyperclip'"
 
-This shouldn't happen as PyPassGen uses only standard library
-But if it does, check Python version:
+Install the required dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+Or install pyperclip directly:
+```bash
+pip install pyperclip
+```
+
+On macOS/Linux, you might need:
+```bash
+pip3 install pyperclip
+```
+
+#### ❌ "ModuleNotFoundError" (other modules)
+
+Check Python version:
 ```bash
 python --version
 ```
@@ -414,7 +460,7 @@ If not, upgrade Python
 Press Ctrl+C to stop the program
 Then run again:
 ```bash
-python PyPassGen.py
+python Example.py
 ```
 
 Make sure to enter a number when prompted
@@ -441,7 +487,7 @@ Make sure to enter a number when prompted
 4. **Make** your changes
 5. **Test** your changes:
    ```bash
-   python PyPassGen.py
+   python Example.py
    ```
 6. **Commit** and **push**:
    ```bash
@@ -466,9 +512,14 @@ git clone https://github.com/pbssubhash/PyPassGen.git
 cd PyPassGen
 ```
 
+Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
 Test the application:
 ```bash
-python PyPassGen.py
+python Example.py
 ```
 
 Ready to contribute!
