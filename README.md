@@ -18,7 +18,8 @@ cd PyPassGen
 ```
 
 # Run the generator
-```bash python PyPassGen.py
+```bash 
+python PyPassGen.py
 ```
 
 ## 📋 Table of Contents
@@ -32,7 +33,8 @@ cd PyPassGen
 
 ## 💻 Installation
 
-### Prerequisites
+### Prerequisites 
+Incase you do not have Python installed or its versions is below 3.6+ follow the following installation guide based on your computer operating system
 
 - Python 3.6 or higher
 - No additional dependencies required
